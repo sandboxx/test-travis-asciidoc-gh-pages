@@ -226,19 +226,19 @@ which offers (via <em>withXXX()</em> methods) a fluent interface for configuring
 <div class="ulist">
 <ul>
 <li>
-<p><a href="javadoc/org/beryx/textio/InputReader#withInputMasking.html">input masking</a> - useful when reading sensitive data such as passwords.</p>
+<p><a href="javadoc/org/beryx/textio/InputReader#withInputMasking-boolean-.html">input masking</a> - useful when reading sensitive data such as passwords.</p>
 </li>
 <li>
-<p><a href="javadoc/org/beryx/textio/InputReader#with.html">defaultValue</a> -</p>
+<p><a href="javadoc/org/beryx/textio/InputReader#with.html">defaultValue</a> - the value to be used if the user pressed Enter.</p>
 </li>
 <li>
-<p><a href="javadoc/org/beryx/textio/InputReader#with.html">possible values</a></p>
+<p><a href="javadoc/org/beryx/textio/InputReader#with.html">possible values</a> - necessary if the value to be read must be chosen from a list of allowed values.</p>
 </li>
 <li>
-<p><a href="javadoc/org/beryx/textio/InputReader#with.html">error messages</a></p>
+<p><a href="javadoc/org/beryx/textio/InputReader#with.html">error messages</a> - used to provide custom error messages.</p>
 </li>
 <li>
-<p><a href="javadoc/org/beryx/textio/InputReader#with.html">property name</a></p>
+<p><a href="javadoc/org/beryx/textio/InputReader#with.html">property name</a> - if configured, the name of the property to be read will appear in error messages.</p>
 </li>
 </ul>
 </div>
@@ -251,36 +251,95 @@ which offers (via <em>withXXX()</em> methods) a fluent interface for configuring
 <div class="ulist">
 <ul>
 <li>
-<p><a href="javadoc/org/beryx/textio/BooleanInputReader.html">BooleanInputReader</a></p>
+<p><a href="javadoc/org/beryx/textio/BooleanInputReader.html">BooleanInputReader</a> - A reader for boolean values. Allows configuring which string value should be interpreted as <em>true</em> and which as <em>false</em>.</p>
 </li>
 <li>
-<p><a href="javadoc/org/beryx/textio/DoubleInputReader.html">DoubleInputReader</a></p>
+<p><a href="javadoc/org/beryx/textio/DoubleInputReader.html">DoubleInputReader</a> - A reader for double values. Allows configuring the minimum and maximum permitted values.</p>
 </li>
 <li>
-<p><a href="javadoc/org/beryx/textio/EnumInputReader.html">EnumInputReader</a></p>
+<p><a href="javadoc/org/beryx/textio/EnumInputReader.html">EnumInputReader</a> - A reader for enum values. It allows selecting one of the constants defined by the given enum type.</p>
 </li>
 <li>
-<p><a href="javadoc/org/beryx/textio/GenericInputReader.html">GenericInputReader</a></p>
+<p><a href="javadoc/org/beryx/textio/GenericInputReader.html">GenericInputReader</a> - A reader for values of a given type, for which a parser is passed as constructor argument.</p>
 </li>
 <li>
-<p><a href="javadoc/org/beryx/textio/IntInputReader.html">IntInputReader</a></p>
+<p><a href="javadoc/org/beryx/textio/IntInputReader.html">IntInputReader</a> - A reader for int values. Allows configuring the minimum and maximum permitted values.</p>
 </li>
 <li>
-<p><a href="javadoc/org/beryx/textio/LongInputReader.html">LongInputReader</a></p>
+<p><a href="javadoc/org/beryx/textio/LongInputReader.html">LongInputReader</a> - A reader for long values. Allows configuring the minimum and maximum permitted values.</p>
 </li>
 <li>
-<p><a href="javadoc/org/beryx/textio/StringInputReader.html">StringInputReader</a></p>
+<p><a href="javadoc/org/beryx/textio/StringInputReader.html">StringInputReader</a> - A reader for string values. Allows configuring the minimum and maximum permitted values.</p>
 </li>
 </ul>
+</div>
+<div class="paragraph">
+<p><strong>Reading values</strong></p>
+</div>
+<div class="paragraph">
+<p>After configuring an input reader, you can use
+<a href="javadoc/org/beryx/textio/InputReader.html#read-java.lang.String&#8230;&#8203;-"> read(String&#8230;&#8203; prompt)</a>
+or
+<a href="javadoc/org/beryx/textio/InputReader.html#read-java.util.List-">read(List&lt;String&gt; prompt)</a>
+to read a value.
+These methods repeatedly prompt the user to enter a value, until a valid input string is provided.</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_textio">TextIO</h3>
-
+<div class="paragraph">
+<p>The <a href="javadoc/org/beryx/textio/TextIO.html">TextIO</a> class provides factory methods for creating input readers.
+These methods have names of the form <code>newXXXInputReader()</code>, such as
+<a href="javadoc/org/beryx/textio/TextIO.html#newIntInputReader--">newIntInputReader()</a>.</p>
+</div>
+<div class="paragraph">
+<p>All InputReaders created by the same TextIO instance share the same <a href="javadoc/org/beryx/textio/TextTerminal.html">TextTerminal</a>,
+which can be retrieved by calling the
+<a href="javadoc/org/beryx/textio/TextIO.html#getTextTerminal--">getTextTerminal()</a> method.</p>
+</div>
 </div>
 <div class="sect2">
 <h3 id="_textiofactory">TextIoFactory</h3>
-
+<div class="paragraph">
+<p>Although you can create yourself a <a href="javadoc/org/beryx/textio/TextIO.html">TextIO</a> instance by passing the desired
+<a href="javadoc/org/beryx/textio/TextTerminal.html">TextTerminal</a> as constructor argument, it is preferable to use the
+<a href="javadoc/org/beryx/textio/TextIoFactory.html">TextIoFactory</a> for this task.</p>
+</div>
+<div class="paragraph">
+<p>The TextIoFactory takes the following steps in order to choose the TextTerminal associated with the TextIO instance to be created:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>If the system property <code>org.beryx.textio.TextTerminal</code> is defined, then it is
+taken to be the fully-qualified name of a concrete TextTerminal class.
+The class is loaded and instantiated. If this process fails, then the next step is executed.</p>
+</li>
+<li>
+<p>A <a href="http://docs.oracle.com/javase/8/docs/api/java/util/ServiceLoader.html">ServiceLoader</a>
+loads the configured <a href="javadoc/org/beryx/textio/TextTerminalProvider.html">TextTerminalProviders</a>
+and searches for the first one capable to provide a TextTerminal instance.
+If none is found, then the next step is executed.</p>
+</li>
+<li>
+<p>A default implementation is provided as follows:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>If <a href="http://docs.oracle.com/javase/8/docs/api/java/lang/System.html#console--">System.console()</a> is not null, a
+<a href="javadoc/org/beryx/textio/console/ConsoleTextTerminal.html">ConsoleTextTerminal</a> is provided.</p>
+</li>
+<li>
+<p>If the system is not headless, a <a href="javadoc/org/beryx/textio/swing/SwingTextTerminal.html">SwingTextTerminal</a> is provided.</p>
+</li>
+<li>
+<p>Otherwise, a <a href="javadoc/org/beryx/textio/system/SystemTextTerminal.html">SystemTextTerminal</a> is provided.</p>
+</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
 </div>
 </div>
 </div>
