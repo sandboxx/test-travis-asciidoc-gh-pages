@@ -221,24 +221,24 @@ It is not capable to mask input strings, therefore not recommended when reading 
 <div class="paragraph">
 <p>Input readers are able to read values of a specific type.
 They are subclasses of <a href="javadoc/org/beryx/textio/InputReader.html">InputReader</a>,
-which offers (via <em>withXXX()</em> methods) a fluent interface for configuring various settings such as:</p>
+which offers (via methods with names of the form <em>withXXX()</em>) a fluent interface for configuring various settings such as:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><a href="javadoc/org/beryx/textio/InputReader#withInputMasking-boolean-.html">input masking</a> - useful when reading sensitive data such as passwords.</p>
+<p><a href="javadoc/org/beryx/textio/InputReader.html#withInputMasking-boolean-.html">input masking</a> - useful when reading sensitive data such as passwords.</p>
 </li>
 <li>
-<p><a href="javadoc/org/beryx/textio/InputReader#with.html">defaultValue</a> - the value to be used if the user pressed Enter.</p>
+<p><a href="javadoc/org/beryx/textio/InputReader.html#withDefaultValue-T-">defaultValue</a> - the value to be used if the user pressed Enter.</p>
 </li>
 <li>
-<p><a href="javadoc/org/beryx/textio/InputReader#with.html">possible values</a> - necessary if the value to be read must be chosen from a list of allowed values.</p>
+<p><a href="javadoc/org/beryx/textio/InputReader.html#withPossibleValues-java.util.List-.html">possible values</a> - necessary if the value to be read must be chosen from a list of allowed values.</p>
 </li>
 <li>
-<p><a href="javadoc/org/beryx/textio/InputReader#with.html">error messages</a> - used to provide custom error messages.</p>
+<p><a href="javadoc/org/beryx/textio/InputReader.html#withErrorMessageProvider-org.beryx.textio.InputReader.ErrorMessageProvider-.html">error messages</a> - used to provide custom error messages.</p>
 </li>
 <li>
-<p><a href="javadoc/org/beryx/textio/InputReader#with.html">property name</a> - if configured, the name of the property to be read will appear in error messages.</p>
+<p><a href="javadoc/org/beryx/textio/InputReader.html#withPropertyName-java.lang.String-.html">property name</a> - if configured, the name of the property to be read will appear in error messages.</p>
 </li>
 </ul>
 </div>
@@ -278,7 +278,7 @@ which offers (via <em>withXXX()</em> methods) a fluent interface for configuring
 </div>
 <div class="paragraph">
 <p>After configuring an input reader, you can use
-<a href="javadoc/org/beryx/textio/InputReader.html#read-java.lang.String&#8230;&#8203;-"> read(String&#8230;&#8203; prompt)</a>
+<a href="javadoc/org/beryx/textio/InputReader.html#read-java.lang.String.%2e.-"> read(String&#8230;&#8203; prompt)</a>
 or
 <a href="javadoc/org/beryx/textio/InputReader.html#read-java.util.List-">read(List&lt;String&gt; prompt)</a>
 to read a value.
